@@ -225,7 +225,7 @@
 <!-- Test 6 -->
 <div class="test-card">
     <div class="test-header">
-        <h4 class="test-name">Practice Test 1</h4>
+        <h4 class="test-name">Practice Test 6</h4>
         <span class="test-badge">Full length</span>
     </div>
     <div class="skills-row">
@@ -235,7 +235,7 @@
                 <span class="skill-name">LISTENING</span>
             </div>
             <div class="progress-box">
-                <button class="btn-take test-btn" data-test="Practice Test 1" data-skill="Listening"><a style="text-decoration: none; color: inherit;" href="Chapter 6/Full Listening Test.html">Topshirish</a></button>
+                <button class="btn-take test-btn" data-test="Practice Test 6" data-skill="Listening"><a style="text-decoration: none; color: inherit;" href="Chapter 6/Full Listening Test.html">Topshirish</a></button>
             </div>
         </div>
         <div class="skill-item">
@@ -244,7 +244,7 @@
                 <span class="skill-name">READING</span>
             </div>
             <div class="progress-box">
-                <button class="btn-take btn-take-reading test-btn" data-test="Practice Test 1" data-skill="Reading"><a style="text-decoration: none; color: inherit;" href="Chapter 6/Practice Reading.html">Topshirish</a></button>
+                <button class="btn-take btn-take-reading test-btn" data-test="Practice Test 6" data-skill="Reading"><a style="text-decoration: none; color: inherit;" href="Chapter 6/Practice Reading.html">Topshirish</a></button>
             </div>
         </div>
         <div class="skill-item">
@@ -253,7 +253,7 @@
                 <span class="skill-name">WRITING</span>
             </div>
             <div class="progress-box">
-                <button class="btn-take btn-take-writing test-btn" data-test="Practice Test 1" data-skill="Writing"><a style="text-decoration: none; color: inherit;" href="Chapter 3/Practice Writing.html">Topshirish</a></button>
+                <button class="btn-take btn-take-writing test-btn" data-test="Practice Test 6" data-skill="Writing"><a style="text-decoration: none; color: inherit;" href="Chapter 3/Practice Writing.html">Topshirish</a></button>
             </div>
         </div>
     </div>
@@ -684,22 +684,27 @@
         // All "Topshirish" buttons - NO MODAL, just show friendly message
         $(".test-btn").on("click", function(e) {
             e.preventDefault();
-            e.stopPropagation();
             
             var testName = $(this).data("test") || "Practice Test";
             var skill = $(this).data("skill") || "Test";
+            var targetUrl = $(this).find("a").attr("href");
             
-            // Show toast message instead of modal
+            // Show toast message
             var $toast = $("#toastMsg");
             $toast.text(`${testName} - ${skill} testi boshlandi! Omad tilaymiz 🎯`);
             $toast.css("opacity", "1");
             
+            // Hide toast after 2.2 seconds (keep original timing for auto-hide)
             setTimeout(function() {
                 $toast.css("opacity", "0");
             }, 2200);
             
-            // Here you can add actual test redirection if needed
-            // window.location.href = `/ielts-test/${testName.toLowerCase().replace(/ /g, '-')}/${skill.toLowerCase()}`;
+            // Redirect after a short delay (e.g., 600ms) if targetUrl is valid
+            if (targetUrl && targetUrl !== "#") {
+                setTimeout(function() {
+                    window.location.href = targetUrl;
+                }, 600);
+            }
         });
     });
 </script>
